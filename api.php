@@ -260,7 +260,7 @@ if($mode == "fragments"){
 				$user_fragments = $db->select('users_fragments', 'id_user = '.$id_user);
 
 				$data = file_get_contents('http://localhost:3001/blocks');
-				$decoded = json_decode($data);
+				$decoded = json_decode($data, true);
 
 				$info = array();
 				$base = array();
@@ -276,12 +276,12 @@ if($mode == "fragments"){
 						$hash = $value['hash'];
 
 						for($i = 1; $i < count($decoded); $i++){
-							if($type != 1 && $decoded[$i]->data[0]->tipo == 1){
-								$base[$b] = $decoded[$i]->data;
+							if($type != 1 && $decoded[$i]['data'][0]['tipo'] == 1){
+								$base[$b] = $decoded[$i]['data'];
 								$b++;
 							}
-							if($decoded[$i]->data[0]->tipo == $type && $decoded[$i]->data[0]->hash == $hash){
-								$info[$j] = $decoded[$i]->data;
+							if($decoded[$i]['data'][0]['tipo'] == $type && $decoded[$i]['data'][0]['hash'] == $hash){
+								$info[$j] = $decoded[$i]['data'];
 								$j++;
 							}
 						}
@@ -289,8 +289,6 @@ if($mode == "fragments"){
 					}
 
 				}
-
-				unset($info[0]->hash);
 
 				$final["code"] = "03";
 				$final["message"] = "Success";
