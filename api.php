@@ -416,6 +416,9 @@ if($mode == "fragments"){
 				$info = array();
 				$base = array();
 
+				$b = 0;
+				$j = 0;
+
 				foreach ($user_fragments as $key => $value) {
 
 					$fragments = $db->select('fragments', 'id_fragment = '.$value['id_fragment']);
@@ -425,10 +428,12 @@ if($mode == "fragments"){
 
 						for($i = 1; $i < count($decoded); $i++){
 							if($type != 1 && $decoded[$i]->data[0]->tipo == 1){
-								$base = $decoded[$i]->data;
+								$base[$b] = $decoded[$i]->data;
+								$b++;
 							}
 							if($decoded[$i]->data[0]->tipo == $type && $decoded[$i]->data[0]->hash == $hash){
-								$info = $decoded[$i]->data;
+								$info[$j] = $decoded[$i]->data;
+								$j++;
 							}
 						}
 						
