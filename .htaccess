@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule api/(.*)/(.*)/ api.php?mode=$1&id=$2
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
